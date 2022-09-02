@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose My Name</title>
+    <link type="text/css" href="./style.css" rel="stylesheet"/>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="title">
+    <div id="my-btn">开始</div>
+    <div id="my-name"></div>
+</div>
+<div id="stars1"></div>
+<div id="stars2"></div>
+<div id="stars3"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<script>
+    var myBtn = document.getElementById("my-btn")
+    var arr = ['卢霁月', '卢旻冉', '卢屿甜', '卢伊恬', '卢星允', '卢佳薏']
+    var myName = document.getElementById("my-name")
+    var timer;
+    var count = 0;
+    var confetti = new JSConfetti()
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //不含最大值，含最小值
+    }
+
+    function showConfetti() {
+        confetti.addConfetti()
+    }
+
+    myBtn.onclick = function () {
+        count++
+        timer = setInterval(function () {
+            var i = getRandomInt(0, 6)
+            myName.innerHTML = arr[i]
+        }, 20)
+        myBtn.style.display = 'none'
+    }
+    myName.onclick = function () {
+        count++
+        if (count === 2) {
+            showConfetti()
+        }
+        clearInterval(timer);
+        if (count === 3) {
+            myBtn.style.display = 'block'
+            myBtn.innerHTML = "开始";
+            myName.innerHTML = ''
+            count = 0
+        }
+    }
+</script>
+</html>
